@@ -25,9 +25,11 @@ BEGIN
             OLD.stock_quantity,
             NEW.stock_quantity,
             NEW.stock_quantity - OLD.stock_quantity,
-            'STOCK UPDATE'
+            IFNULL(@inventory_reason, 'STOCK UPDATE')
 
         );
+
+        SET @inventory_reason = NULL;
 
     END IF;
 
