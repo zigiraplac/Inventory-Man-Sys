@@ -3,7 +3,9 @@
 -- Purpose: Create the project database
 -- ============================================
 
-CREATE DATABASE IF NOT EXISTS inventory_management;
+CREATE DATABASE inventory_management;
 
 -- Switch to the new database
 USE inventory_management;
+
+SHOW TABLES;
