@@ -1,5 +1,7 @@
 USE inventory_management;
 
+DROP PROCEDURE IF EXISTS place_order;
+
 DELIMITER $$
 
 CREATE PROCEDURE place_order(
@@ -12,6 +14,12 @@ CREATE PROCEDURE place_order(
 BEGIN
 
     DECLARE v_order_id INT;
+
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+        ROLLBACK;
+        RESIGNAL;
+    END;
 
     START TRANSACTION;
 
