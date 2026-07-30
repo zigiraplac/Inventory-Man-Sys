@@ -89,7 +89,7 @@ SELECT * FROM vw_order_summary LIMIT 20;
 ### View customer tiers
 
 ```sql
-SELECT * FROM create_customer_tier_view;
+SELECT * FROM vw_customer_tier;
 ```
 
 ### View low-stock products
