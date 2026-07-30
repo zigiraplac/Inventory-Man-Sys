@@ -29,7 +29,7 @@ If the command works, you are ready to run the project.
 Run the bootstrap script from the project root:
 
 ```powershell
-& 'C:\Program Files\MySQL\MySQL Server 8.0\bin\mysql.exe' -u root -p < scripts/run_all.sql
+Get-Content scripts\run_all.sql | & 'C:\Program Files\MySQL\MySQL Server 8.0\bin\mysql.exe' -u root -p
 ```
 
 Enter your MySQL root password when prompted.
@@ -65,7 +65,7 @@ SHOW FULL TABLES WHERE Table_type = 'VIEW';
 ### Run the full project
 
 ```powershell
-& 'C:\Program Files\MySQL\MySQL Server 8.0\bin\mysql.exe' -u root -p < scripts/run_all.sql
+Get-Content scripts\run_all.sql | & 'C:\Program Files\MySQL\MySQL Server 8.0\bin\mysql.exe' -u root -p
 ```
 
 ### Connect directly to the project database
@@ -103,7 +103,7 @@ SELECT * FROM vw_low_stock;
 ### Run only schema and seed files
 
 ```powershell
-& 'C:\Program Files\MySQL\MySQL Server 8.0\bin\mysql.exe' -u root -p < scripts/run_all.sql
+Get-Content scripts\run_all.sql | & 'C:\Program Files\MySQL\MySQL Server 8.0\bin\mysql.exe' -u root -p
 ```
 
 ### Rebuild from scratch
@@ -111,7 +111,7 @@ SELECT * FROM vw_low_stock;
 If you want to rebuild the database and start clean:
 
 ```powershell
-& 'C:\Program Files\MySQL\MySQL Server 8.0\bin\mysql.exe' -u root -p < scripts/run_all.sql
+Get-Content scripts\run_all.sql | & 'C:\Program Files\MySQL\MySQL Server 8.0\bin\mysql.exe' -u root -p
 ```
 
 ### Use a specific database inside MySQL
