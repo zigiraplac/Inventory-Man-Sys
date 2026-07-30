@@ -13,6 +13,8 @@ CREATE TABLE orders (
 
     status VARCHAR(20) DEFAULT 'PENDING',
 
+    -- Default RESTRICT (no CASCADE): deleting a customer should never
+    -- silently erase their order history.
     CONSTRAINT fk_order_customer
         FOREIGN KEY (customer_id)
         REFERENCES customers(customer_id)

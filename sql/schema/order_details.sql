@@ -22,6 +22,8 @@ CREATE TABLE order_details (
     discount DECIMAL(5,2) DEFAULT 0,
 
 
+    -- Default RESTRICT (no CASCADE): an order/product with recorded line
+    -- items should never be silently deletable — that would erase order history.
     CONSTRAINT fk_detail_order
         FOREIGN KEY(order_id)
         REFERENCES orders(order_id),

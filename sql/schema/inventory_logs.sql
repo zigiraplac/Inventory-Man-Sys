@@ -24,6 +24,8 @@ CREATE TABLE inventory_logs (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
 
+    -- Default RESTRICT (no CASCADE): deleting a product should never
+    -- silently erase its stock-change audit trail.
     CONSTRAINT fk_inventory_product
 
         FOREIGN KEY(product_id)
