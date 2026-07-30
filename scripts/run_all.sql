@@ -33,6 +33,7 @@ SOURCE sql/procedures/replenish_stock.sql;
 SOURCE sql/views/vw_order_summary.sql;
 SOURCE sql/views/vw_low_stocks.sql;
 SOURCE sql/views/vw_customer_spending.sql;
+SOURCE sql/views/vw_customer_tier.sql;
 
 -- Optional — leaves auto-replenishment DISABLED. Enable manually if wanted:
 SOURCE sql/events/evt_auto_replenish.sql;

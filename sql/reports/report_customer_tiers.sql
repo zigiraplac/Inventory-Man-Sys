@@ -4,18 +4,8 @@ SELECT
 
     total_spent,
 
-    CASE
+    customer_tier AS tier
 
-        WHEN total_spent >= 2000
-            THEN 'Gold'
-
-        WHEN total_spent >= 500
-            THEN 'Silver'
-
-        ELSE 'Bronze'
-
-    END AS customer_tier
-
-FROM customer_spending
+FROM vw_customer_spending
 
 ORDER BY total_spent DESC;
