@@ -6,6 +6,6 @@ SELECT
 
     total_spent
 
-FROM customer_spending
+FROM vw_customer_spending
 
 ORDER BY total_spent DESC;
