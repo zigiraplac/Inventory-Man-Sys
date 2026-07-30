@@ -95,7 +95,7 @@ SELECT * FROM vw_customer_tier;
 ### View low-stock products
 
 ```sql
-SELECT * FROM vw_low_stocks;
+SELECT * FROM vw_low_stock;
 ```
 
 ## Helpful commands
