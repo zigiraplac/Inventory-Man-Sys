@@ -54,5 +54,10 @@ a failure partway through prints one error and stops, with no per-step
 timing and no easy way to re-run just one part. `src/pipeline/pipeline.py`
 breaks the same sequence into named phases (see `docs/pipeline_design.md`),
 each logged individually, and exposes `--only <phase>` / `--from <phase>`
-so a single phase (e.g. `reports`) can be re-run without rebuilding
+so a single phase (e.g. `views`) can be re-run without rebuilding
 everything from scratch.
+
+Note that `sql/reports/*.sql` are not part of any phase — they never
+were sourced by `scripts/run_all.sql` either. They're standalone
+queries you run manually against an already-built database (see the
+README's "Common user workflows" section), not build steps.

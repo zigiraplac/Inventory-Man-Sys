@@ -78,7 +78,7 @@ python scripts/run_pipeline.py --env dev
 Useful flags:
 
 ```powershell
-python scripts/run_pipeline.py --env dev --only reports   # run just one phase
+python scripts/run_pipeline.py --env dev --only views     # run just one phase
 python scripts/run_pipeline.py --env dev --from procedures # run from a phase onward
 ```
 
