@@ -10,7 +10,7 @@ SOURCE sql/schema/00_drop_all.sql;
 SOURCE sql/schema/customers.sql;
 SOURCE sql/schema/products.sql;
 SOURCE sql/schema/orders.sql;
-SOURCE sql/schema/orders_details.sql;
+SOURCE sql/schema/order_details.sql;
 SOURCE sql/schema/inventory_logs.sql;
 SOURCE sql/schema/alter_customers_add_tiers.sql;
 SOURCE sql/schema/indexes.sql;
