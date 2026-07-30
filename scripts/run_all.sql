@@ -6,6 +6,7 @@
 -- ============================================================
 
 SOURCE sql/schema/database.sql;
+SOURCE sql/schema/00_drop_all.sql;
 SOURCE sql/schema/customers.sql;
 SOURCE sql/schema/products.sql;
 SOURCE sql/schema/orders.sql;
