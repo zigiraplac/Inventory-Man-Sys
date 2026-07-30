@@ -1,0 +1,7 @@
+# Disposable database for exercising the pipeline without touching dev data.
+db_host: localhost
+db_port: 3306
+db_user: root
+db_name: inventory_management_test
+mysql_client: "C:/Program Files/MySQL/MySQL Server 8.0/bin/mysql.exe"
+log_level: DEBUG

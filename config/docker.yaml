@@ -1,0 +1,9 @@
+# Used by the "pipeline" service in docker-compose.yml. "mysql" is the
+# service name Docker Compose resolves on the shared network, and the
+# mysql CLI is on PATH inside the pipeline container (see Dockerfile).
+db_host: mysql
+db_port: 3306
+db_user: root
+db_name: inventory_management
+mysql_client: mysql
+log_level: INFO

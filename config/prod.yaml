@@ -1,0 +1,11 @@
+# This lab has no real production deployment. Values below are safe
+# placeholders — in an actual prod environment, override every field via
+# environment variables (DB_HOST, DB_PORT, DB_USER, DB_NAME, DB_PASSWORD,
+# MYSQL_CLIENT) rather than editing this file, and never commit real
+# prod credentials here.
+db_host: localhost
+db_port: 3306
+db_user: root
+db_name: inventory_management
+mysql_client: mysql
+log_level: WARNING

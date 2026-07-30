@@ -1,0 +1,9 @@
+# Local development environment (native Windows MySQL install).
+# Fields can be overridden via environment variables of the same name
+# in UPPER_SNAKE_CASE (DB_HOST, DB_PORT, DB_USER, DB_NAME, MYSQL_CLIENT).
+db_host: localhost
+db_port: 3306
+db_user: root
+db_name: inventory_management
+mysql_client: "C:/Program Files/MySQL/MySQL Server 8.0/bin/mysql.exe"
+log_level: INFO
