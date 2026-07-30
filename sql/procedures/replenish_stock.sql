@@ -1,5 +1,7 @@
 USE inventory_management;
 
+DROP PROCEDURE IF EXISTS replenish_stock;
+
 DELIMITER $$
 
 CREATE PROCEDURE replenish_stock(

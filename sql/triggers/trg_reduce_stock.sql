@@ -1,5 +1,7 @@
 USE inventory_management;
 
+DROP TRIGGER IF EXISTS trg_reduce_stock;
+
 DELIMITER $$
 
 CREATE TRIGGER trg_reduce_stock

@@ -1,5 +1,7 @@
 USE inventory_management;
 
+DROP PROCEDURE IF EXISTS create_order;
+
 DELIMITER $$
 
 CREATE PROCEDURE create_order (

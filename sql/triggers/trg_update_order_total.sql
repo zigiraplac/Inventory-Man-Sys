@@ -1,5 +1,7 @@
 USE inventory_management;
 
+DROP TRIGGER IF EXISTS trg_update_order_total;
+
 DELIMITER $$
 
 CREATE TRIGGER trg_update_order_total
