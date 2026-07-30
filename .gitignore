@@ -1,1 +1,12 @@
 sql/seed/
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Environment secrets
+.env
+
+# Pipeline run logs (keep the directory itself via logs/.gitkeep)
+logs/*.log
