@@ -2,6 +2,8 @@
 
 This repository contains the SQL implementation of an inventory and order management database for an e-commerce workflow.
 
+Diagrams: [ERD](docs/erd.md) for the data model, [architecture](docs/architecture.md) for how the code is organized.
+
 ## Quick Start
 
 ### 1. Clone the repository
@@ -82,11 +84,17 @@ python scripts/run_pipeline.py --env dev --only views     # run just one phase
 python scripts/run_pipeline.py --env dev --from procedures # run from a phase onward
 ```
 
-Run the unit tests (no database required):
+Run the tests:
 
 ```powershell
 python -m pytest
 ```
+
+`tests/test_pipeline.py` covers orchestration logic only, no DB required.
+`tests/test_procedures.py` exercises real procedures/triggers against the
+disposable `inventory_management_test` database (config/test.yaml) — it
+builds that database itself and never touches dev data; it's skipped
+automatically if MySQL isn't reachable.
 
 Or run everything in Docker (MySQL + pipeline containers):
 
@@ -97,66 +105,27 @@ docker compose up --build
 See `docs/architecture.md` for how this layer relates to the SQL lab,
 and `docs/pipeline_design.md` for the phase list and how to extend it.
 
-## Common user workflows
+## Common workflows
 
-### Run the full project
+Rebuilding the database is always the same command as Quick Start step 3
+above — `run_all.sql` is idempotent, so re-running it drops and recreates
+everything from scratch.
 
-```powershell
-Get-Content scripts\run_all.sql | & 'C:\Program Files\MySQL\MySQL Server 8.0\bin\mysql.exe' -u root -p
-```
-
-### Connect directly to the project database
+Connect and query:
 
 ```powershell
 & 'C:\Program Files\MySQL\MySQL Server 8.0\bin\mysql.exe' -u root -p inventory_management
 ```
 
-### Check current orders
-
 ```sql
 SELECT * FROM orders LIMIT 20;
-```
-
-### View order summary
-
-```sql
 SELECT * FROM vw_order_summary LIMIT 20;
-```
-
-### View customer tiers
-
-```sql
 SELECT * FROM vw_customer_tier;
-```
-
-### View low-stock products
-
-```sql
 SELECT * FROM vw_low_stock;
 ```
 
-## Helpful commands
-
-### Run only schema and seed files
-
-```powershell
-Get-Content scripts\run_all.sql | & 'C:\Program Files\MySQL\MySQL Server 8.0\bin\mysql.exe' -u root -p
-```
-
-### Rebuild from scratch
-
-If you want to rebuild the database and start clean:
-
-```powershell
-Get-Content scripts\run_all.sql | & 'C:\Program Files\MySQL\MySQL Server 8.0\bin\mysql.exe' -u root -p
-```
-
-### Use a specific database inside MySQL
-
-```sql
-USE inventory_management;
-SHOW TABLES;
-```
+Column-level constraints and what triggers what are documented in
+`docs/data_dictionary.md`.
 
 ## Notes for collaborators
 
