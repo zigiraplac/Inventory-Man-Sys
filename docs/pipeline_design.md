@@ -37,6 +37,16 @@ the same name (`DB_HOST`, `DB_PORT`, `DB_USER`, `DB_NAME`, `MYSQL_CLIENT`)
 override any field — `DB_PASSWORD` *only* ever comes from the environment
 (via `.env`, never from a yaml file) since it's a secret.
 
+Every file under `sql/` hardcodes `USE inventory_management;` (and
+`schema/database.sql` hardcodes the matching `CREATE DATABASE`), so that
+`scripts/run_all.sql` keeps working standalone with no config involved.
+`src/pipeline/mysql_runner.py::run_sql_file()` rewrites that literal name
+to `config.db_name` before sourcing whenever they differ — this is what
+makes `config/test.yaml`'s `inventory_management_test` a genuinely
+separate database rather than an alias for dev's `inventory_management`.
+`dev`, `prod`, and `docker` all use the same name the files already
+hardcode, so no rewrite (and no temp file) happens for them.
+
 ## Logging
 
 `src/pipeline/logging_setup.py::setup_logging()` configures the
