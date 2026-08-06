@@ -9,7 +9,6 @@ Diagrams: [ERD](docs/erd.md) for the data model, [architecture](docs/architectur
 ### 1. Clone the repository
 
 ```powershell
-cd C:\Users\USER\Documents\AmaliTech\Projects
 git clone <repository-url> inventory-order-management
 cd inventory-order-management
 ```
