@@ -9,6 +9,17 @@ CREATE PROCEDURE create_order (
 )
 BEGIN
 
+    DECLARE v_customer_exists INT;
+
+    SELECT COUNT(*) INTO v_customer_exists
+    FROM customers
+    WHERE customer_id = p_customer_id;
+
+    IF v_customer_exists = 0 THEN
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Customer does not exist';
+    END IF;
+
     INSERT INTO orders (
         customer_id,
         order_date,

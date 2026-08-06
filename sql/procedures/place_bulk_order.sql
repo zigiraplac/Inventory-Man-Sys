@@ -37,6 +37,11 @@ BEGIN
         RESIGNAL;
     END;
 
+    IF p_items IS NULL OR JSON_LENGTH(p_items) = 0 THEN
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Items list must not be empty';
+    END IF;
+
     START TRANSACTION;
 
     CALL create_order(p_customer_id);

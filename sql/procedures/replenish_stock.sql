@@ -10,6 +10,11 @@ CREATE PROCEDURE replenish_stock(
 )
 BEGIN
 
+    IF p_quantity <= 0 THEN
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Replenishment quantity must be greater than zero';
+    END IF;
+
     SET @inventory_reason = 'REPLENISHMENT';
 
     UPDATE products

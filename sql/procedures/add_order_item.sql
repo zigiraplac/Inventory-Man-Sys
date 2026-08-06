@@ -32,6 +32,11 @@ BEGIN
             SET MESSAGE_TEXT = 'Product does not exist';
     END IF;
 
+    IF p_quantity <= 0 THEN
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Quantity must be greater than zero';
+    END IF;
+
     IF v_stock < p_quantity THEN
 
         SIGNAL SQLSTATE '45000'
