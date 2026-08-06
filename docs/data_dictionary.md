@@ -1,7 +1,8 @@
 # Data dictionary
 
 Derived from `sql/schema/*.sql`. This is documentation only — the schema
-files themselves remain the source of truth.
+files themselves remain the source of truth. See `docs/erd.md` for a
+visual diagram of these same tables and their relationships.
 
 ## customers
 

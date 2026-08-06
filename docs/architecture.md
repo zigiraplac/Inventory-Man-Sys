@@ -1,5 +1,8 @@
 # Architecture
 
+See `docs/erd.md` for the data model (tables/relationships). This doc
+covers how the code that builds and runs that data model is organized.
+
 This project has two layers, deliberately kept separate:
 
 1. **The SQL lab (`sql/`)** — the source of truth. All business logic —
@@ -14,26 +17,41 @@ This project has two layers, deliberately kept separate:
    phase-by-phase, with structured logging, per-environment configuration,
    and clearer failure attribution than a single monolithic `SOURCE` run.
 
+```mermaid
+flowchart TD
+    CLI["scripts/run_pipeline.py<br/>CLI entrypoint"]
+
+    subgraph pipeline["src/pipeline/"]
+        direction TB
+        config["config.py<br/>(env/yaml)"]
+        logging["logging_setup.py"]
+        core["pipeline.py<br/>(PHASES)"]
+        runner["mysql_runner.py"]
+    end
+
+    subgraph sql["sql/"]
+        direction TB
+        schema["schema/"]
+        triggers["triggers/"]
+        seed["seed/"]
+        procedures["procedures/"]
+        views["views/"]
+        events["events/"]
+    end
+
+    DB[("MySQL")]
+
+    CLI --> config
+    CLI --> core
+    core --> logging
+    core --> runner
+    runner -->|"shells out to the mysql CLI,<br/>one file at a time"| sql
+    sql --> DB
 ```
-                 ┌─────────────────────────┐
-                 │   scripts/run_pipeline.py │  CLI entrypoint
-                 └───────────┬─────────────┘
-                             │
-                 ┌───────────▼─────────────┐
-                 │      src/pipeline/        │
-                 │  config.py   (env/yaml)   │
-                 │  logging_setup.py         │
-                 │  pipeline.py (PHASES)     │
-                 │  mysql_runner.py           │
-                 └───────────┬─────────────┘
-                             │ shells out to `mysql` CLI, one file at a time
-                 ┌───────────▼─────────────┐
-                 │          sql/             │
-                 │  schema/ triggers/ seed/  │
-                 │  procedures/ views/       │
-                 │  events/                  │
-                 └───────────────────────────┘
-```
+
+Alternatively, `scripts/run_all.sql` drives the same `sql/` tree directly
+via `mysql -u root -p < scripts/run_all.sql`, with no Python involved —
+see the standalone path below.
 
 ## Why shell out to the `mysql` CLI instead of a Python DB driver?
 
@@ -43,9 +61,10 @@ triggers/procedures. That's a client-side meta-command specific to the
 (`mysql-connector-python`, `PyMySQL`, etc.) has no concept of it and
 can't execute those files as-is. Reusing the same `mysql -e "SOURCE ...;"`
 mechanism `scripts/run_all.sql` already depends on means both entrypoints
-stay behaviorally identical, and it's also why `requirements.txt` includes
-`mysql-connector-python` only for a lightweight future connectivity
-pre-check — not for running the phases themselves.
+stay behaviorally identical. `requirements.txt` also includes
+`mysql-connector-python`, but only for assertions in
+`tests/test_procedures.py` — it is never used to run the phases
+themselves.
 
 ## Why phases instead of one script?
 
@@ -60,4 +79,4 @@ everything from scratch.
 Note that `sql/reports/*.sql` are not part of any phase — they never
 were sourced by `scripts/run_all.sql` either. They're standalone
 queries you run manually against an already-built database (see the
-README's "Common user workflows" section), not build steps.
+README's "Common workflows" section), not build steps.
